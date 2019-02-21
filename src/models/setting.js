@@ -1,7 +1,7 @@
 export default {
   namespace: 'setting',
   state: {
-    themeColor: '#ff7800',
+    themeColor: '#38324a',
   },
   effects: {},
   reducers: {},

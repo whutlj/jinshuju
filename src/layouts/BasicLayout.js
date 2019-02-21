@@ -4,35 +4,45 @@ import { connect } from 'dva';
 import DocumentTitle from 'react-document-title';
 import SiderMenu from '@/components/SiderMenu';
 import memoizeOne from 'memoize-one';
-@connect(({ setting, routes }) => ({
+@connect(({ setting, app }) => ({
   themeColor: setting.themeColor,
+  siderMenu: app.siderMenu,
 }))
 class BasicLayout extends React.PureComponent {
-  constructor(porps) {
+  constructor(props) {
+    super(props);
     this.getDocumentTitle = memoizeOne(this.getDocumentTitle);
-    this.getBreadcrumbMap = memoizeOne(this.getBreadcrumbMap);
-    this.breadcrumb = this.getBreadcrumbMap();
   }
-  state = {
-    menuData: [],
-  };
+
+  componentDidMount() {
+    const {
+      dispatch,
+      route: { routes },
+    } = this.props;
+    dispatch({
+      type: 'app/setSiderMenu',
+      payload: routes,
+    });
+  }
   getDocumentTitle = pathname => {
     return pathname;
   };
-  getBreadcrumbMap = () => {
-    const { route: routes } = this.props;
-    console.log(routes);
-  };
+
   render() {
     const {
       children,
-      themeColor,
       location: { pathname },
     } = this.props;
-    console.log(this.props);
     return (
       <React.Fragment>
-        <DocumentTitle title={this.getDocumentTitle(pathname)}>{children}</DocumentTitle>
+        <DocumentTitle title={this.getDocumentTitle(pathname)}>
+          <div className={styles.sjContainer}>
+            <div className={styles.siderMenu}>
+              <SiderMenu {...this.props} />
+            </div>
+            <div className={styles.content}>{children}</div>
+          </div>
+        </DocumentTitle>
       </React.Fragment>
     );
   }
