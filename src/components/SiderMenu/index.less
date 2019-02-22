@@ -1,6 +1,44 @@
 .siderContainer {
-
+  min-height: 100vh;
 }
 .siderTop {
-  height: 250px;
+  height: 125px;
+  position: relative;
+  .avatar {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    left: 28px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-position:  0 0;
+    background-size: 100% 100%;
+    background-image: url('../../icons/user-1.png');
+    background-repeat: no-repeat;
+  }
+  .user {
+    padding-top: 35px;
+    padding-left: 115px;
+    color: #ffffff;
+  }
+}
+.liItem {
+  display: block;
+  height: 84px;
+  color: #c3c1c9;
+  padding-left: 48px;
+  line-height: 84px;
+  font-size: 14px;
+  &:hover,
+  &.selected {
+    background-color: #4c465c;
+    color: #ffffff;
+  }
+  text-decoration: none;
+  .menuIcon {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    margin-right: 20px;
+  }
 }

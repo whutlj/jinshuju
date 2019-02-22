@@ -4,10 +4,7 @@ import { connect } from 'dva';
 import DocumentTitle from 'react-document-title';
 import SiderMenu from '@/components/SiderMenu';
 import memoizeOne from 'memoize-one';
-@connect(({ setting, app }) => ({
-  themeColor: setting.themeColor,
-  siderMenu: app.siderMenu,
-}))
+import Media from 'react-media';
 class BasicLayout extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -32,14 +29,17 @@ class BasicLayout extends React.PureComponent {
     const {
       children,
       location: { pathname },
+      isMobile,
     } = this.props;
     return (
       <React.Fragment>
         <DocumentTitle title={this.getDocumentTitle(pathname)}>
           <div className={styles.sjContainer}>
-            <div className={styles.siderMenu}>
-              <SiderMenu {...this.props} />
-            </div>
+            {isMobile ? null : (
+              <div className={styles.siderMenu}>
+                <SiderMenu {...this.props} />
+              </div>
+            )}
             <div className={styles.content}>{children}</div>
           </div>
         </DocumentTitle>
@@ -47,5 +47,11 @@ class BasicLayout extends React.PureComponent {
     );
   }
 }
-
-export default BasicLayout;
+export default connect(({ setting, app }) => ({
+  themeColor: setting.themeColor,
+  siderMenu: app.siderMenu,
+}))(props => (
+  <Media query="(max-width: 599px)">
+    {isMobile => <BasicLayout {...props} isMobile={isMobile} />}
+  </Media>
+));

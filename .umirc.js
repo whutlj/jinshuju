@@ -26,4 +26,7 @@ export default {
       },
     }],
   ],
+  manifest: {
+    basePath: '/',
+  },
 }
