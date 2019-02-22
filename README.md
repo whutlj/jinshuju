@@ -4,8 +4,9 @@
  2、未使用第三方UI  
  3、响应式设计  
 ### 未完成
- 页面大部分设计
+ 部分页面设计
 
  ### 项目运行步骤
-1、yarn
-2、yarn start
+1、yarn  
+2、yarn start  
+3、浏览器访问路径：http://localhost:8080
